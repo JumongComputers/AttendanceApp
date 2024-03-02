@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 
 const Schema = new mongoose.Schema({
   
-pupils: {
+pupil: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'users',
     required: true
@@ -11,6 +11,11 @@ pupils: {
 class:{
     type: String,
 },
+Parent:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'parent',
+  require: true
+}
 // DateCheckedIn:{
 //     type:Date,
 //     require: true

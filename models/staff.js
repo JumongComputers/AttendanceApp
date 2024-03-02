@@ -8,14 +8,7 @@ staff: {
     ref: 'user',
     required: true
   },
-DateSignIn:{
-    type: Date,
-    require: true
-},
-DateSignOut:{
-    type: Date,
-    require: true
-}
+
 
  
 },  { timestamps: true })

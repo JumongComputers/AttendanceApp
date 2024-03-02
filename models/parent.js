@@ -8,6 +8,11 @@ parent: {
     ref: 'users',
     required: true
   },
+children:{
+  type: mongoose.Schema.Types.ObjectId,
+  ref: 'pupils',
+  require: true
+}
 // DateCheckedIN: {
 //     type: Date,
 //     require: true
