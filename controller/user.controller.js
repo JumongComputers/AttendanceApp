@@ -30,6 +30,31 @@ export async function signUp(req, res, next) {
     }
 }
 
+export async function updateUser(req, res, next) {
+    try {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['name', 'email']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+      return res.status(400).send({ error: 'Invalid updates!' })
+    }
+
+    const user = await User.findOne({ _id: req.params.id })
+
+    if (!user) {
+      return res.status(404).send()
+    }
+
+    updates.forEach((update) => user[update] = req.body[update])
+    await user.save()
+
+    res.send(user)
+  } catch (e) {
+    res.status(400).send(e)
+  }
+}
+
 export async function signIn(req, res, next) {
   try {
     const data = req.body

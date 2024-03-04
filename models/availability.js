@@ -1,19 +1,22 @@
+import { type } from 'express/lib/response'
 import mongoose from 'mongoose'
 
 
 const Schema = new mongoose.Schema({
   
-user: {
+pupil: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'users',
+    ref: 'pupils',
     required: true
   },
-DateSignIn:{
-    type: Date,
+parent: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'parent',
     require: true
 },
-DateSignOut:{
-    type: Date,
+checked: {
+    type: String,
+    enum: ['checked in', 'checked out'],
     require: true
 }
 

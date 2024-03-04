@@ -34,6 +34,16 @@ const Schema = new mongoose.Schema({
         enum: ['parent', 'pupils', 'staffs','admin'],
         default: 'pupils',
       },
+      emai:{
+        type: String,
+        unique: true,
+        required: [true, 'email is required'],
+      },
+      password: {
+        type: String,
+        required: [true, 'password is required'],
+        minlength: 6
+      },
       createdAt: {
         type: Date,
         default: Date.now,
