@@ -1,6 +1,7 @@
 import Exception from '../exception.js'
 import dotenv from 'dotenv'
 import Availabilty from '../models/availability.js'
+import { status } from 'express/lib/response.js'
 
 export function homepage(req, res) {
     res.send('Welcome to the attendance system')
@@ -95,3 +96,50 @@ export  async function markAttendance(req, res, next) {
     next(new Exception(error.message, error.status));
   }
 }
+
+
+
+export async function updateAnAttendance(req, res, next) {
+  try {
+    const updates = Object.keys(req.body)
+    const allowedUpdates = ['pupil', 'parent', 'checked']
+    const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
+
+    if (!isValidOperation) {
+      return res.status(400).send({ error: 'Invalid updates!' })
+    }
+
+    const attendance = await findAnAttendance(req.params.id)
+    
+} catch (error) {
+  next(new Exception(error.message, error.status))
+}
+
+export async function deleteAnAttendance(req, res){
+  await Availabilty.findByIdAndDelete({_id: req.params.id})
+  res.send({
+    status: "success",
+    statusCode: 200,
+    message: "Attendance record deleted successfully",
+    data: 'Attendance Deleted'
+  })
+}
+
+
+// export async function deleteAttendances(req, res, next ) {
+//   try{
+//     await Availabilty.deleteMany()
+//     res.semd({
+//       status: "success",
+//       statusCode: 200,
+//       message: "All attendance records deleted successfully",
+//       data: 'All Attendance Deleted'
+//     })
+//   } catch(error) 
+//   {
+//     next(new Exception(error.message, error.status))
+
+//   }
+// }
+
+

@@ -19,3 +19,22 @@ const signInschema = Joi.object({
   password: Joi.string().required().min(6).max(30),
   
 })
+
+export const validateSignUp = (req, res, next) => {
+  const { error } = signUpschema.validate(req.body);
+  if (error) {
+    const { details } = error;
+    const message = details.map(i => i.message).join(',');
+    next(new Exception(message, 400))
+  }
+  next();
+}
+
+export const validateSignIn = (req, res, next) => {
+  const { error } = signInschema.validate(req.body);
+  if (error) {
+    const { details } = error;
+    const message = details.map(i => i.message).join(',');
+    next(new Exception(message, 400))
+  }
+}
